@@ -10,29 +10,36 @@ import java.util.Scanner;
  * @author Usuario
  */
 public class Eje2 {
-    
-    /**
-     * @param args the command line arguments
-     */
-    public void printChar(char val, int cant){
-        for(int i = 0; i<cant; i++){
-            System.out.print(val);
-        }
-    }
-    public static void main(String[] args) {
-        // TODO code application logic here
-        Scanner input = new Scanner(System.in);
-        
-        long n = input.nextInt();
-        long m = input.nextInt();
-        long parts = Math.round(Math.pow(2, m));
-        long max = n/parts;
-        boolean pixel= true;
-        for(int i = 0; i<n; i++){
-            for(int j = 0; j<n; j++){
-            
+    public static void printTriangleLine(long n, long m, long h) {
+        if (m == 0) {
+            for (int i = 0; i < n - h; i++) {
+                System.out.print("#");
+            }
+            for (int i = 0; i < h; i++) {
+                System.out.print("_");
+            }
+        } else {
+
+            printTriangleLine(n / 2, m - 1, h % (n / 2));
+            if (h < n / 2) {
+                printTriangleLine(n / 2, m - 1, h % (n / 2));
+            } else {
+
+                for (int i = 0; i < n / 2; i++) {
+                    System.out.print("_");
+                }
             }
         }
+    }
+    public static void main(String args[] ) throws Exception {
+        Scanner s = new Scanner(System.in);
+        long n = s.nextLong();
+        long m = s.nextLong();
+        for (long i = n-1; i >=0; i--) {
+            printTriangleLine(n, m, i);
+            System.out.println("");
+        }
+
     }
     
 }

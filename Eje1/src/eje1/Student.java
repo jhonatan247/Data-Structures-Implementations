@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package eje1;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -11,15 +12,16 @@ import java.util.ArrayList;
  * @author Usuario
  */
 public class Student {
+    
     private ArrayList<Subject> subjects;
     private String user;
     private double pappi; 
-    private int totalCredits;
-    private int validCredits;
+    private long totalCredits;
+    private long validCredits;
 
     public Student(String user) {
         this.user = user;
-        subjects = new ArrayList<Subject>();
+        subjects = new ArrayList();
         pappi=0;
         totalCredits = 0;
         validCredits = 0;
@@ -29,19 +31,19 @@ public class Student {
         return subjects;
     }
 
-    public int getTotalCredits() {
+    public long getTotalCredits() {
         return totalCredits;
     }
 
-    public int getValidCredits() {
+    public long getValidCredits() {
         return validCredits;
     }
 
-    public void setValidCredits(int validCredits) {
+    public void setValidCredits(long validCredits) {
         this.validCredits += validCredits;
     }
 
-    public void setTotalCredits(int totalCredits) {
+    public void setTotalCredits(long totalCredits) {
         this.totalCredits += totalCredits;
     }
 
@@ -66,7 +68,9 @@ public class Student {
     }
     
     public void calculatePappi(){
-        pappi /= totalCredits;
+        DecimalFormat df = new DecimalFormat("#.000000");
+        
+        pappi = Double.parseDouble(df.format(pappi / totalCredits));
     }
     
     

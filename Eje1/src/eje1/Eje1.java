@@ -7,7 +7,6 @@ package eje1;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
-import java.util.Locale;
 
 public class Eje1 {
 
@@ -15,8 +14,6 @@ public class Eje1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Locale.setDefault(new Locale("en", "US"));
-        
         ArrayList<Student> students = new ArrayList();
         Scanner input = new Scanner(System.in);
         int totalStudents = input.nextInt();
@@ -43,7 +40,7 @@ public class Eje1 {
         Collections.sort(students, new myComparator());
         
         for(int i = 0; i<totalStudents; i++){
-            System.out.println(students.get(i).getPappi()+" - "+students.get(i).getTotalCredits()+" - "+students.get(i).getValidCredits()+" - "+students.get(i).getUser());
+            System.out.println(students.get(i).getUser());
         }
         
     }

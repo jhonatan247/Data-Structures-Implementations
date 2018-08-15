@@ -16,7 +16,7 @@ public class myComparator implements Comparator<Student> {
         if(result!= 0)
             return result;
         
-        result = Integer.compare(o1.getValidCredits(), o2.getValidCredits());
+        result = Long.compare(o1.getValidCredits(), o2.getValidCredits());
         if(result!= 0)
             return result;
         
