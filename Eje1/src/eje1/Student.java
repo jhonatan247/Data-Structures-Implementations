@@ -15,6 +15,10 @@ public class Student {
     
     private ArrayList<Subject> subjects;
     private String user;
+    //error al almacenar double
+    //usar fracciones
+    // a/b < c/d
+    // a*d < c*b
     private double pappi; 
     private long totalCredits;
     private long validCredits;
