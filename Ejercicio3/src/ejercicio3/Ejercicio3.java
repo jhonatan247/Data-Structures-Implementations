@@ -16,11 +16,11 @@ public class Ejercicio3 {
         }
         long initial =0;
         int mod =0;
-        while(n>1){
-            mod = (int)((initial+a)%n--);
+        while(l.size()>1){
+            mod = (int)((initial+a)%l.size());
             l.remove(mod);
             initial =mod;
-            if(initial>= n)
+            if(initial>= l.size())
                 initial = 0;
             a= (a*b+c)%(1000000007);
         }
