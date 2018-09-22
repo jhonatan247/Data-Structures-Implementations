@@ -48,20 +48,20 @@ class ArrayQueue<T>{
     }
 }
 class Carrera{
-    ArrayQueue<Estudiante> q;
+    ArrayQueue<String> q;
     String Carrera;
 
     public Carrera(String nombre, String Carrera) {
         this.Carrera = Carrera;
         q = new ArrayQueue();
-        q.add(new Estudiante(nombre));
+        add(nombre);
     }
     
     public void add(String nombre){
-        q.add(new Estudiante(nombre));
+        q.add(nombre);
     }
     public String remove(){
-        return q.remove().nombre;
+        return q.remove();
     }
     public boolean isEmpty(){
         return q.isEmpty();
@@ -70,14 +70,6 @@ class Carrera{
         this.Carrera = "";
         q = null;
     }
-}
-class Estudiante{
-    String nombre;
-
-    public Estudiante(String nombre) {
-        this.nombre = nombre;
-    }
-    
 }
 public class Eje6 {
     public static void main(String[] args) throws Exception{
