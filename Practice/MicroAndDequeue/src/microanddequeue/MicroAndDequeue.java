@@ -22,7 +22,7 @@ public class MicroAndDequeue {
         for(int i = 0; i<queries; i++){
             input = new StringTokenizer(b.readLine());
             if(input.nextElement().toString().equals("E")){
-                q.add(Integer.parseInt(input.nextToken().toString()));
+                q.add(Integer.parseInt(input.nextElement().toString()));
                 System.out.println(q.size());
             }else{
                 if(q.size() >0)

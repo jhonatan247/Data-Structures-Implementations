@@ -2,7 +2,7 @@ package eje5;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Eje5 {
 
@@ -10,6 +10,8 @@ public class Eje5 {
         BufferedReader s = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(s.readLine());
         String opt = "";
+        
+        //Versión con colas de prioridad
         PriorityQueue<Request> q = new PriorityQueue();
         for(int i = 0; i< n; i++){
             opt = s.readLine();
