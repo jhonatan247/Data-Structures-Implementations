@@ -3,37 +3,70 @@ package eje10;
 import java.util.*;
 import java.io.*;
 
-class Node {
+class ArrayQueue<T> {
 
-    int minI;
-    int minJ;
-    int maxI;
-    int maxJ;
-    long sum;
-    int value;
-    int childs;
+    int front;
+    int back;
+    T[] queue;
 
-    public Node(int minI, int minJ, int maxI, int maxJ, long sum, int value) {
-        this.minI = minI;
-        this.minJ = minJ;
-        this.maxI = maxI;
-        this.maxJ = maxJ;
-        this.sum = sum;
-        this.value = value;
-    }
-    public Node(int minI, int minJ, int maxI, int maxJ) {
-        this.minI = minI;
-        this.minJ = minJ;
-        this.maxI = maxI;
-        this.maxJ = maxJ;
+    public ArrayQueue(int initialCapacity) {
+        if (initialCapacity < 1) {
+            throw new IllegalArgumentException("initialCapacity must be >= 1");
+        }
+        queue = (T[]) new Object[initialCapacity + 1];
+        front = back = 0;
     }
 
+    public ArrayQueue() {
+        this(10);
+    }
+
+    public boolean isEmpty() {
+        return back == front;
+    }
+
+    public T getFrontElement() {
+        if (isEmpty()) {
+            return null;
+        } else {
+            return queue[(front + 1) % queue.length];
+        }
+    }
+
+    public void put(T theElement) {
+        if ((back + 1) % queue.length == front) {
+            T[] newQueue = (T[]) new Object[2 * queue.length];
+            int start = (front + 1) % queue.length;
+            if (start < 2) {
+                System.arraycopy(queue, start, newQueue, 0, queue.length - 1);
+            } else {
+                System.arraycopy(queue, start, newQueue, 0, queue.length - start);
+                System.arraycopy(queue, 0, newQueue, queue.length - start, back + 1);
+            }
+            front = newQueue.length - 1;
+            back = queue.length - 2;
+            queue = newQueue;
+        }
+        back = (back + 1) % queue.length;
+        queue[back] = theElement;
+    }
+
+    public T remove() {
+        if (isEmpty()) {
+            return null;
+        }
+        front = (front + 1) % queue.length;
+        T frontElement = queue[front];
+        queue[front] = null;
+        return frontElement;
+    }
 }
 
 class ArrayCity {
 
     int city[][];
     int latifundiaLargue;
+
     public ArrayCity(int n, int m) {
         latifundiaLargue = (n > m ? generateSize(n) : generateSize(m));
         city = new int[latifundiaLargue][latifundiaLargue];
@@ -49,6 +82,36 @@ class ArrayCity {
 
 }
 
+class Node {
+
+    int minI;
+    int minJ;
+    int maxI;
+    int maxJ;
+    long sum;
+    int value;
+    int childs;
+    int depth;
+
+    public Node(int I, int J, int value) {
+        this.minI = I;
+        this.minJ = J;
+        this.maxI = I;
+        this.maxJ = J;
+        this.sum = value;
+        this.value = value;
+    }
+
+    public Node(int minI, int minJ, int maxI, int maxJ, int depth) {
+        this.minI = minI;
+        this.minJ = minJ;
+        this.maxI = maxI;
+        this.maxJ = maxJ;
+        this.depth = depth;
+    }
+
+}
+
 class DesroyedCity {
 
     Node city[];
@@ -56,32 +119,68 @@ class DesroyedCity {
     ArrayCity initialCity;
     int edgeLength;
     int depth;
+
     public DesroyedCity(ArrayCity initialCity) {
         edgeLength = initialCity.latifundiaLargue;
-        size = generateTerritory( edgeLength*edgeLength);
+        size = generateTerritory(edgeLength * edgeLength);
         this.initialCity = initialCity;
-        city = new Node[size];
+        try{
+            city = new Node[size];
+            divideCity();
+        }catch(Exception e){
+            
+        }
     }
 
     public void divideCity() {
-        city[1] = new Node(0,0,edgeLength,edgeLength);
-        Stack<Node> parents = new Stack();
-        parents.push(city[1]);
-        Node currentParent= city[1];
-        int currentdepth = depth-1;
-        for(int i = 0; i< size; i++){
-            switch(currentParent.childs){
-                case 0:
-                    
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
+        city[1] = new Node(0, 0, edgeLength-1, edgeLength-1, depth);
+        ArrayQueue<Node> parents = new ArrayQueue();
+        parents.put(city[1]);
+        Node currentParent;
+        int halfMaxI;
+        int halfMaxJ;
+        int halfMaxINext;
+        int halfMaxJNext;
+        Node current;
+        int currentDepth;
+        for (int i = 2; i < size;) {
+            currentParent = parents.remove();
+            currentDepth = currentParent.depth - 1;
+            if (currentDepth > 0) {
+                halfMaxI = currentParent.maxI / 2;
+                halfMaxJ = currentParent.maxJ / 2;
+                halfMaxJNext = halfMaxJ + 1;
+                halfMaxINext = halfMaxI + 1;
+                current = new Node(currentParent.minI, currentParent.minJ,
+                        halfMaxI, halfMaxJ, currentDepth);
+                city[i++] = current;
+                parents.put(current);
+
+                current = new Node(currentParent.minI, halfMaxJNext,
+                        halfMaxI, currentParent.maxJ, currentDepth);
+                city[i++] = current;
+                parents.put(current);
+
+                current = new Node(halfMaxINext, currentParent.minJ,
+                        currentParent.maxI, halfMaxJ, currentDepth);
+                city[i++] = current;
+                parents.put(current);
+
+                current = new Node(halfMaxINext, halfMaxJNext,
+                        currentParent.maxI, currentParent.maxJ, currentDepth);
+                city[i++] = current;
+                parents.put(current);
+            }else{
+                city[i++] = new Node(currentParent.minI, currentParent.minJ, 
+                        initialCity.city[currentParent.minI][currentParent.minJ]);
+                city[i++] = new Node(currentParent.minI, currentParent.maxJ, 
+                        initialCity.city[currentParent.minI][currentParent.maxJ]);
+
+                city[i++] = new Node(currentParent.maxI, currentParent.minJ, 
+                        initialCity.city[currentParent.maxI][currentParent.minJ]);
+
+                city[i++] = new Node(currentParent.maxI, currentParent.maxJ, 
+                        initialCity.city[currentParent.maxI][currentParent.maxJ]);
             }
         }
     }
@@ -95,12 +194,12 @@ class DesroyedCity {
             sections += territory;
             depth++;
         }
-        return sections+1;
+        return sections + 1;
     }
 
 }
 
-public class Eje10 {
+class Eje10 {
 
     public static ArrayCity GenerateInicialCity(int n, int m, int f11, int a, int b) {
         int aExp = 1;
