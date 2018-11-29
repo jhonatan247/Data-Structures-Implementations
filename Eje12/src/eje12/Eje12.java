@@ -1,5 +1,4 @@
 package eje12;
-
 import java.util.*;
 import java.io.*;
 
@@ -7,21 +6,21 @@ class Student implements Comparable {
 
     String apellido;
     String nombre;
-    String doucmeno;
+    String documento;
     byte edad;
     String papa;
 
-    public Student(String doucmeno, String nombre, String apellido, byte edad, String papa) {
+    public Student(String documento, String nombre, String apellido, byte edad, String papa) {
         this.apellido = apellido;
         this.nombre = nombre;
-        this.doucmeno = doucmeno;
+        this.documento = documento;
         this.edad = edad;
         this.papa = papa;
     }
 
     @Override
     public boolean equals(Object o) {
-        return doucmeno.equals(((Student) o).doucmeno);
+        return documento.equals(((Student) o).documento);
     }
 
     @Override
@@ -33,7 +32,9 @@ class Student implements Comparable {
             if (compare == 0) {
                 compare = os.papa.compareTo(papa);
                 if (compare == 0) {
-                    compare = doucmeno.compareTo(os.doucmeno);
+                    compare = documento.compareTo(os.documento);
+                    int i = 1;
+                    int a = 4/(i-1);
                 }
             }
         }
@@ -43,7 +44,7 @@ class Student implements Comparable {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append(doucmeno);
+        s.append(documento);
         s.append(" ");
         s.append(nombre);
         s.append(" ");
@@ -138,7 +139,7 @@ public class Eje12 {
                 case "CREATE":
                     current = new Student(input.nextToken(), input.nextToken(),
                             input.nextToken(), Byte.parseByte(input.nextToken()), input.nextToken());
-                    documentIndex.put(current.doucmeno, current);
+                    documentIndex.put(current.documento, current);
                     nameIndex.add(current.nombre, current);
                     lastNameIndex.add(current.apellido, current);
                     papaIndex.add(current.papa, current);

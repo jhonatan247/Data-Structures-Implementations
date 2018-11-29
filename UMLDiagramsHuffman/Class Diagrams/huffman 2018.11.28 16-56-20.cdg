@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="huffman">
+  <ClassDiagramComponents>
+    <Class name="BinaryTree" package="huffman" visibility="public" xPosition="113.0" yPosition="30.0">
+      <Fields>
+        <Field name="root" type="BinaryTreeNode" visibility="private"/>
+        <Field name="binaryRepresentation" type="TreeMap&lt;Character, String&gt;" visibility="private"/>
+        <Field name="stringRepresentation" type="StringBuilder" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="BinaryTree" name="left"/>
+          <Argument type="BinaryTree" name="right"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="char" name="element"/>
+          <Argument type="int" name="count"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getBinatyRepresentation" returnType="TreeMap" visibility="public"/>
+        <Method name="createBinaryRepresentation" returnType="void" visibility="private">
+          <Argument type="String" name="key"/>
+          <Argument type="BinaryTreeNode" name="node"/>
+        </Method>
+        <Method name="root" returnType="BinaryTreeNode" visibility="public"/>
+        <Method name="compareTo" returnType="int" visibility="public">
+          <Argument type="Object" name="o"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="BinaryTreeNode" package="huffman" visibility="public" xPosition="81.0" yPosition="508.0">
+      <Fields>
+        <Field name="element" type="Character" visibility="private"/>
+        <Field name="count" type="Integer" visibility="private"/>
+        <Field name="leftChild" type="BinaryTreeNode" visibility="private"/>
+        <Field name="rightChild" type="BinaryTreeNode" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="char" name="theElement"/>
+          <Argument type="int" name="theCount"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="BinaryTreeNode" name="theLeftChild"/>
+          <Argument type="BinaryTreeNode" name="theRightChild"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getLeftChild" returnType="BinaryTreeNode" visibility="public"/>
+        <Method name="getRightChild" returnType="BinaryTreeNode" visibility="public"/>
+        <Method name="getElement" returnType="Character" visibility="public"/>
+        <Method name="getCount" returnType="Integer" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Heap" package="huffman" visibility="public" xPosition="616.0" yPosition="39.0">
+      <Fields>
+        <Field name="BinaryHeap" type="BinaryTree[]" visibility="private"/>
+        <Field name="size" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="text"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="isEmpty" returnType="boolean" visibility="public"/>
+        <Method name="size" returnType="int" visibility="public"/>
+        <Method name="getMax" returnType="BinaryTree" visibility="public"/>
+        <Method name="add" returnType="void" visibility="public">
+          <Argument type="BinaryTree" name="x"/>
+        </Method>
+        <Method name="removeMax" returnType="BinaryTree" visibility="public"/>
+        <Method name="initialize" returnType="void" visibility="private">
+          <Argument type="String" name="text"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Huffman" package="huffman" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields>
+        <Field name="inputFile" type="String" visibility="private"/>
+        <Field name="outputFile" type="String" visibility="private"/>
+        <Field name="binaryMessage" type="String" visibility="private"/>
+        <Field name="frequencyQueue" type="Heap" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="inputFile"/>
+          <Argument type="String" name="outputFile"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getFileText" returnType="String" visibility="private"/>
+        <Method name="getFileMap" returnType="TreeMap&lt;String, Character&gt;" visibility="private"/>
+        <Method name="setFileText" returnType="void" visibility="private">
+          <Argument type="StringBuilder" name="text"/>
+        </Method>
+        <Method name="compress" returnType="void" visibility="public"/>
+        <Method name="uncompress" returnType="void" visibility="public"/>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="frequencyQueue" source="huffman.Huffman" target="huffman.Heap" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="leftChild" source="huffman.BinaryTreeNode" target="huffman.BinaryTreeNode" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="huffman.Heap" target="huffman.BinaryTree" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="huffman.BinaryTree" target="huffman.BinaryTreeNode" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="root" source="huffman.BinaryTree" target="huffman.BinaryTreeNode" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="rightChild" source="huffman.BinaryTreeNode" target="huffman.BinaryTreeNode" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="huffman.BinaryTreeNode" target="huffman.BinaryTreeNode" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
