@@ -33,8 +33,6 @@ class Student implements Comparable {
                 compare = os.papa.compareTo(papa);
                 if (compare == 0) {
                     compare = documento.compareTo(os.documento);
-                    int i = 1;
-                    int a = 4/(i-1);
                 }
             }
         }
